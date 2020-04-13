@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <style>
+        body{
+            /* background-color: blanchedalmond; */
+            /* color: blueviolet; */
+            background-color: black;
+            color: greenyellow;
+            font-size: 200px;
+            text-align: center;
+            margin: 300px;
+        }
+    </style>
+</head>
+<script>
+    function startTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        // 在小于10的数字前加一个‘0’
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+        t = setTimeout(function () { startTime() }, 500);
+    }
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+</script>
+
+<body onload="startTime()">
+    <div id="time"></div>
+</body>
+
+</html>
