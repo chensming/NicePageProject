@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CountDown</title>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <style>
+        body {
+            background-color: blanchedalmond;
+            text-align: center;
+            font-size: 50px;
+            color: blueviolet;
+        }
+
+        #mytime {
+            margin: 220px;
+        }
+
+        #myinput {
+            height: 50px;
+            font-size: 60px;
+            text-align: center;
+            margin-top: 10px;
+            border-radius: 20px;
+            border-color: rgb(59, 228, 53);
+            width: 200px;
+        }
+
+        #myinput:hover {
+            height: 50px;
+            font-size: 60px;
+            text-align: center;
+            margin-top: 10px;
+            border-radius: 20px;
+            border: 2px solid rgb(184, 75, 211);
+            width: 220px;
+        }
+
+        #operation {
+            margin-top: 40px;
+            width: 20%;
+            height: 40px;
+            border-radius: 20px;
+            color: antiquewhite;
+            background-color: darkseagreen;
+            width: 200px;
+        }
+
+        #operation:hover {
+            color: white;
+            background-color: aquamarine;
+            width: 300px;
+        }
+    </style>
+</head>
+<script>
+    var times = 600;
+    function oper() {
+        var a = document.getElementById('myinput').value
+        if (a == "" || a == null || a == undefined) {
+            // "",null,undefined
+        } else {
+            a = parseInt(a);
+            times = a;
+            // alert(a);
+        }
+        //隐藏输入框
+        $("#mytime").hide();
+        $("body").css({
+            "color": "greenyellow",
+            "background-color": "black",
+            "font-size": "140px",
+            "margin": "200px",
+        });
+        startTime();
+    }
+
+    function startTime() {
+        h = parseInt(times / 3600);
+        m = parseInt((times - h * 3600) / 60);
+        s = times % 60;
+        // 在小于10的数字前加一个‘0’       
+        h = checkTime(h);
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+        times = times - 1;
+        var t = setTimeout(function () { startTime() }, 1000)
+        if (times == -1) {
+            clearTimeout(t);
+            var myAuto = document.getElementById('myaudio');
+            myAuto.play();
+        }
+    }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+</script>
+
+<body>
+    <div id="time"></div>
+    <audio id="myaudio" src="ring.mp3" style="display: none;"></audio>
+    <div id="mytime">
+        倒计时 <input id="myinput" type="text" /> 秒钟
+        <br>
+        <button id="operation" onclick="oper()">开始倒计时</button>
+        <p style="font-size: 25px; color: rgb(95, 196, 13);">tips:直接按钮点击默认10min</p>
+    </div>
+</body>
+
+</html>
